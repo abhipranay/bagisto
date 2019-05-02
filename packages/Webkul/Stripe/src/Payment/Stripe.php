@@ -27,6 +27,10 @@ abstract class Stripe extends Payment
             );
     }
 
+    public function getPublicKey() {
+        return 'pk_test_hF0ZHe4a3fuRAn3wuhutVZG2';
+    }
+
     /**
      * Add order item fields
      *
@@ -61,7 +65,7 @@ abstract class Stripe extends Payment
         $billingAddress = $cart->billing_address;
 
         $fields = array_merge($fields, [
-            'city'             => $billingAddress->city,
+            /*'city'             => $billingAddress->city,
             'country'          => $billingAddress->country,
             'email'            => $billingAddress->email,
             'first_name'       => $billingAddress->first_name,
@@ -69,7 +73,8 @@ abstract class Stripe extends Payment
             'zip'              => $billingAddress->postcode,
             'state'            => $billingAddress->state,
             'address1'         => $billingAddress->address1,
-            'address_override' => 1
+            'address_override' => 1*/
+            'email'            => $billingAddress->email
         ]);
     }
 
