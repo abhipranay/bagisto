@@ -49,22 +49,13 @@ class Standard extends Stripe
         $cart = $this->getCart();
 
         $fields = [
-            'business'        => $this->getConfigData('business_account'),
             'invoice'         => $cart->id,
             'currency_code'   => $cart->cart_currency_code,
-            'paymentaction'   => 'sale',
-            'return'          => route('paypal.standard.success'),
-            'cancel_return'   => route('paypal.standard.cancel'),
-            'notify_url'      => route('paypal.standard.ipn'),
-            'charset'         => 'utf-8',
             'item_name'       => core()->getCurrentChannel()->name,
-            'amount'          => $cart->sub_total,
-            'tax'             => $cart->tax_total,
-            'shipping'        => $cart->selected_shipping_rate->price,
-            'discount_amount' => $cart->discount
+            'amount'          => $cart->sub_total + $cart->tax_total + $cart->selected_shipping_rate->price - $cart->discount
         ];
 
-        if ($this->getIsLineItemsEnabled()) {
+        /*if ($this->getIsLineItemsEnabled()) {
             $fields = array_merge($fields, array(
                 'cmd'    => '_cart',
                 'upload' => 1,
@@ -86,7 +77,7 @@ class Standard extends Stripe
                 'cmd'           => '_ext-enter',
                 'redirect_cmd'  => '_xclick',
             ));
-        }
+        }*/
 
         $this->addAddressFields($fields);
 
