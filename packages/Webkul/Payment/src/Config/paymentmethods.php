@@ -24,5 +24,15 @@ return [
         'sandbox' => true,
         'active' => true,
         'business_account' => 'test@webkul.com'
+    ],
+
+    'stripe_standard' => [
+        'code' => 'stripe_standard',
+        'title' => 'Stripe Standard',
+        'description' => 'Stripe Standard',
+        'class' => 'Webkul\Stripe\Payment\Standard',
+        'sandbox' => true,
+        'active' => true,
+        'business_account' => 'abhipranay.chauhan@gmail.com'
     ]
 ];

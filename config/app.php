@@ -240,6 +240,7 @@ return [
         Webkul\Sales\Providers\SalesServiceProvider::class,
         Webkul\Tax\Providers\TaxServiceProvider::class,
         Webkul\API\Providers\APIServiceProvider::class,
+        Webkul\Stripe\Providers\StripeServiceProvider::class,
     ],
 
     /*

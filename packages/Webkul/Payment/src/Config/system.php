@@ -117,5 +117,45 @@ return [
                 'validation' => 'required'
             ]
         ]
+    ], [
+        'key' => 'sales.paymentmethods.stripe_standard',
+        'name' => 'admin::app.admin.system.stripe-standard',
+        'sort' => 4,
+        'fields' => [
+            [
+                'name' => 'title',
+                'title' => 'admin::app.admin.system.title',
+                'type' => 'text',
+                'validation' => 'required',
+                'channel_based' => false,
+                'locale_based' => true
+            ], [
+                'name' => 'description',
+                'title' => 'admin::app.admin.system.description',
+                'type' => 'textarea',
+                'channel_based' => false,
+                'locale_based' => true
+            ],  [
+                'name' => 'business_account',
+                'title' => 'admin::app.admin.system.business-account',
+                'type' => 'select',
+                'type' => 'text',
+                'validation' => 'required'
+            ],  [
+                'name' => 'active',
+                'title' => 'admin::app.admin.system.status',
+                'type' => 'select',
+                'options' => [
+                    [
+                        'title' => 'Active',
+                        'value' => true
+                    ], [
+                        'title' => 'Inactive',
+                        'value' => false
+                    ]
+                ],
+                'validation' => 'required'
+            ]
+        ]
     ]
 ];
