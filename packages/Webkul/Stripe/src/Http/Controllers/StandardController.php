@@ -5,6 +5,7 @@ namespace Webkul\Stripe\Http\Controllers;
 use Webkul\Checkout\Facades\Cart;
 use Webkul\Sales\Repositories\OrderRepository;
 use Webkul\Stripe\Helpers\Ipn;
+use Webkul\Stripe\Helpers\StripePayment;
 
 /**
  * Stripe Standard controller
@@ -29,6 +30,13 @@ class StandardController extends Controller
     protected $ipnHelper;
 
     /**
+     * StripePayment object
+     *
+     * @var StripePayment
+     */
+    protected $stripePayment;
+
+    /**
      * Create a new controller instance.
      *
      * @param  Webkul\Attribute\Repositories\OrderRepository  $orderRepository
@@ -36,12 +44,15 @@ class StandardController extends Controller
      */
     public function __construct(
         OrderRepository $orderRepository,
-        Ipn $ipnHelper
+        Ipn $ipnHelper,
+        StripePayment $stripePayment
     )
     {
         $this->orderRepository = $orderRepository;
 
         $this->ipnHelper = $ipnHelper;
+
+        $this->stripePayment = $stripePayment;
     }
 
     /**
@@ -89,6 +100,11 @@ class StandardController extends Controller
      */
     public function doPayment()
     {
-        $this->ipnHelper->processIpn(request()->all());
+        try {
+            $stripeResponse = $this->stripePayment->chargeCard(request()->all());
+            return $stripeResponse;
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
